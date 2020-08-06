@@ -21,14 +21,8 @@ interface Props {
     children: JSX.Element | Array<JSX.Element>
 }
 
-interface TimeContext {
-    time : ITime,
-    setTime : (t : ITime) => void;
-}
-
-
-const DateContext = createContext<TimeContext>({
-    time: {year : 2020,
+const TimeContext = createContext<ITimeContext>({
+    date: {year : 2020,
             month: 1,
             date: 1,
             hour: '00',
@@ -39,7 +33,7 @@ const DateContext = createContext<TimeContext>({
     setTime: (t: ITime): void => {},
 })
 
-const DateContextProvider = ({ children } : Props ) => {
+const TimeContextProvider = ({ children } : Props ) => {
     let Ftime = new Date();
     let timeNow = {
         year: Ftime.getFullYear(),
@@ -68,8 +62,19 @@ const DateContextProvider = ({ children } : Props ) => {
                 second: time.getSeconds()<10 ? '0'+time.getSeconds() : String(time.getSeconds()),
                 meridium: time.getHours()>=12 ? '오전' : '오후',
             }
-            setTime(timeNow)
+            setDate(timeNow)
         }, 1000);
     }, []);
 
-}
+    return (
+        <TimeContext.Provider 
+            value={{
+                date,
+                setTime,
+            }}>
+            {children}
+        </TimeContext.Provider>
+    );
+};
+
+export { TimeContextProvider, TimeContext };

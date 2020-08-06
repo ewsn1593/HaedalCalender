@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Styled from 'styled-components/native';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
 import Clock from './Clock';
+import { TimeContext } from '~/Context\\TimeContext';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const Container = Styled.View`
@@ -12,16 +13,22 @@ const Container = Styled.View`
 `;
 
 const BoogyImage = Styled.Image`
-    width: 79.466666667%;
     position: absolute;
     top: 24.6305418719%;
     right: -9.6%
-    resize-mode : center;
 `;
 
-const IconNavigationContainer = Styled.View``;
+const IconNavigationContainer = Styled.View`
+    flex-direction: row;
+    justify-content: space-between;
+    width: 55.2%;
+    position: absolute;
+    top: 51.354679803%;;
+`;
 
-const Icon = Styled.TouchableOpacity``;
+const TouchIcon = Styled.TouchableOpacity``;
+
+const Icon = Styled.Image``;
 
 const Notice = Styled.Text`
     width: 26.4%;
@@ -44,12 +51,16 @@ const Board = Styled.Text`
     bottom: 11.5763546%;
 `;
 
+const BoardDateText = Styled.Text`
+    font-family: 'RIDIBatang';
+    font-size: 20px;
+    text-align: center;
+
+`;
+
 const BottomIcon = Styled.Image`
     position: absolute;
     bottom: 2.0935960951%;
-    resize-mode : center;
-    width: 10.66666%;
-    height: 4.187192%;
 `;
 
 interface Props {
@@ -58,16 +69,36 @@ interface Props {
 
 
 const Main = ({ navigation }: Props) => {
+    const {date} = useContext<ITimeContext>(
+        TimeContext
+    );
+
     return (
-        <Container>
-            <Clock />
-            <BoogyImage source={require('~/Assets\\Images\\Main\\boogy.png')}/>
-            <Notice allowFontScaling={false}>오늘의 일정</Notice>
-            <Board allowFontScaling={false}></Board>
-            <BottomIcon
-                source={require('~/Assets\\Images\\Common\\Logo.png')}
-            />
-        </Container>
+            <Container>
+                <Clock />
+                <BoogyImage source={require('~/Assets\\Images\\Main\\boogy.png')}/>
+                <IconNavigationContainer>
+                    <TouchIcon onPress={() => navigation.navigate('Calendar')}>
+                        <Icon source={require('~/Assets\\Images\\Main\\calendar.png')} />
+                    </TouchIcon>
+                    <TouchIcon onPress={() => navigation.navigate('Notice')}>
+                        <Icon source={require('~/Assets\\Images\\Main\\megaphone.png')} />
+                    </TouchIcon>
+                    <TouchIcon onPress={() => navigation.navigate('TimeTable')}>
+                        <Icon source={require('~/Assets\\Images\\Main\\clock.png')} />
+                    </TouchIcon>
+                </IconNavigationContainer>
+                <Notice allowFontScaling={false}>오늘의 일정</Notice>
+                <Board allowFontScaling={false}>
+                    <BoardDateText>
+                        {date.year}년 {date.month+1 < 10 ? '0' + (date.month+1) : date.month+1}월 {date.date < 10 ? '0' + date.date : date.date}일
+                    </BoardDateText>
+                </Board>
+                <BottomIcon
+                    source={require('~/Assets\\Images\\Common\\Logo.png')}
+                />
+            </Container>
+        
     );
 };
 

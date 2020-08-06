@@ -78,7 +78,7 @@ const Loading = ({ navigation }: Props) => {
             navigation.navigate('MainNavigator');
         }, 2500)
     });
-    
+  
     return (
         <Container>
             <ImageContainer>

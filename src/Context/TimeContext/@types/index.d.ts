@@ -7,3 +7,8 @@ interface ITime {
     second: string;
     meridium: string;
 }
+
+interface ITimeContext {
+    date : ITime,
+    setTime : (t : ITime) => void,
+}
