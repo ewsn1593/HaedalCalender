@@ -59,8 +59,8 @@ Notice.navigationOptions = ({ navigation } : INavi) => {
             </RButtonContainer>
         ),
         headerLeft: (
-            <LButtonContainer onPress={() => {navigation.navigate('Main')}}>
-                <Icon source={require('~/Assets\\Images\\Notice\\LeftArrow.png')} />
+            <LButtonContainer onPress={() => {navigation.goBack()}}>
+                <Icon source={require('~/Assets\\Images\\Common\\LeftArrow.png')} />
             </LButtonContainer>
         ),
     };

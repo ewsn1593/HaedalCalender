@@ -78,7 +78,7 @@ const Main = ({ navigation }: Props) => {
                 <Clock />
                 <BoogyImage source={require('~/Assets\\Images\\Main\\boogy.png')}/>
                 <IconNavigationContainer>
-                    <TouchIcon onPress={() => navigation.navigate('Calendar')}>
+                    <TouchIcon onPress={() => navigation.navigate('TimeAdd')}>
                         <Icon source={require('~/Assets\\Images\\Main\\calendar.png')} />
                     </TouchIcon>
                     <TouchIcon onPress={() => navigation.navigate('Notice')}>
@@ -101,6 +101,7 @@ const Main = ({ navigation }: Props) => {
         
     );
 };
+
 
 Main.navigationOptions = {
     header: null,

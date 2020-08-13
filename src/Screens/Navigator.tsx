@@ -9,7 +9,9 @@ import Main from '~/Screens\\Main';
 import Notice from '~/Screens\\Notice';
 import NoticeDetail from '~/Screens\\NoticeDetail';
 import TimeTable from '~/Screens\\TimeTable';
-import Calendar from '~/Screens\\Calendar'
+import TimeAdd from '~/Screens\\TimeAdd';
+import TimeModify from '~/Screens\\TimeModify';
+import Calendar from '~/Screens\\Calendar';
 
 import createAnimatedSwitchNavigator  from 'react-navigation-animated-switch';
 import { Transition }  from 'react-native-reanimated';
@@ -20,6 +22,8 @@ const MainNavigator = createStackNavigator(
   Notice,
   NoticeDetail,
   TimeTable,
+  TimeModify,
+  TimeAdd,
   Calendar,
 },
 {
@@ -27,22 +31,10 @@ const MainNavigator = createStackNavigator(
 }
 );
 
-/*
-const NoticeNavigator = createStackNavigator({
-  
-});
-
-/*
-const TimeNavigator = createStackNavigator({
-
-});
-*/
-
 const AppNavigator = createAnimatedSwitchNavigator(
     {
         Loading,
         MainNavigator,
-        //TimeNavigator,
     },
     {
         initialRouteName: 'Loading',

@@ -2,18 +2,26 @@ import React, { createContext, useState, useEffect } from 'react';
 
 function getTimeString() : string {
     let curHour = new Date();
-    let beforeProcessHour = curHour.getHours()
+    let beforeProcessHour = curHour.getHours();
     let processedHour = '00';
+
     if (beforeProcessHour > 12){
         if (beforeProcessHour < 22){
             processedHour = '0' + (beforeProcessHour-12);
+        }
+        else{
+            processedHour = String(beforeProcessHour-12);
         }
     }
     else{
         if (beforeProcessHour < 10){
              processedHour = '0' + beforeProcessHour;
         }
+        else{
+            processedHour = String(beforeProcessHour);
+        }
     }
+    
     return processedHour;
 }
 
@@ -42,7 +50,7 @@ const TimeContextProvider = ({ children } : Props ) => {
         hour: getTimeString(),
         minute: Ftime.getMinutes()<10 ? '0'+Ftime.getMinutes() : String(Ftime.getMinutes()),
         second: Ftime.getSeconds()<10 ? '0'+Ftime.getSeconds() : String(Ftime.getSeconds()),
-        meridium: Ftime.getHours()>=12 ? '오전' : '오후',
+        meridium: Ftime.getHours()>=12 ? '오후' : '오전',
     };
     const  [date, setDate] = useState<ITime>(timeNow);
 
@@ -60,7 +68,7 @@ const TimeContextProvider = ({ children } : Props ) => {
                 hour: getTimeString(),
                 minute: time.getMinutes()<10 ? '0'+time.getMinutes() : String(time.getMinutes()),
                 second: time.getSeconds()<10 ? '0'+time.getSeconds() : String(time.getSeconds()),
-                meridium: time.getHours()>=12 ? '오전' : '오후',
+                meridium: time.getHours()>=12 ? '오후' : '오전',
             }
             setDate(timeNow)
         }, 1000);
